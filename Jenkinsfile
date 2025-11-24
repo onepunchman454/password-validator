@@ -20,10 +20,13 @@ pipeline {
         stage('Stop Old Container') {
             steps {
                 bat '''
-                docker ps -q --filter "name=password-validator-container" | findstr .
-                if %errorlevel%==0 (
-                    docker stop password-validator-container
-                    docker rm password-validator-container
+                docker ps -q --filter "name=password-validator-container" > tmp.txt
+                if exist tmp.txt (
+                    for /f %%i in (tmp.txt) do (
+                        docker stop password-validator-container
+                        docker rm password-validator-container
+                    )
+                    del tmp.txt
                 )
                 '''
             }
