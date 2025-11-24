@@ -4,37 +4,34 @@ pipeline {
     stages {
 
         stage('Pull from GitHub') {
-    steps {
-        git branch: 'main',
-            credentialsId: 'github-token1',
-            url: 'https://github.com/onepunchman454/password-validator.git'
-    }
-}
-
+            steps {
+                git branch: 'main',
+                    credentialsId: 'github-token1',
+                    url: 'https://github.com/onepunchman454/password-validator.git'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t password-validator .'
+                bat 'docker build -t password-validator .'
             }
         }
 
         stage('Stop Old Container') {
             steps {
-                script {
-                    // If container exists, stop & remove it
-                    sh '''
-                    if [ $(docker ps -aq -f name=password-validator-container) ]; then
-                        docker stop password-validator-container || true
-                        docker rm password-validator-container || true
-                    fi
-                    '''
-                }
+                bat '''
+                docker ps -q --filter "name=password-validator-container" | findstr .
+                if %errorlevel%==0 (
+                    docker stop password-validator-container
+                    docker rm password-validator-container
+                )
+                '''
             }
         }
 
         stage('Run New Container') {
             steps {
-                sh 'docker run -d --name password-validator-container -p 8090:80 password-validator'
+                bat 'docker run -d --name password-validator-container -p 8080:80 password-validator'
             }
         }
     }
