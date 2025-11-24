@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Validator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="container">
+        <h2>Password Strength Checker</h2>
+
+        <input type="password" id="password" placeholder="Enter password">
+
+        <div id="strength-text">Strength: </div>
+
+        <div class="rules">
+            <p id="rule-length">• At least 8 characters</p>
+            <p id="rule-lower">• Contains lowercase letter</p>
+            <p id="rule-upper">• Contains uppercase letter</p>
+            <p id="rule-number">• Contains number</p>
+            <p id="rule-special">• Contains special character</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
