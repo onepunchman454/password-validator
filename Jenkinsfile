@@ -4,10 +4,13 @@ pipeline {
     stages {
 
         stage('Pull from GitHub') {
-            steps {
-                git 'https://github.com/onepunchman454/password-validator.git'
-            }
-        }
+    steps {
+        git branch: 'main',
+            credentialsId: 'github-token1',
+            url: 'https://github.com/onepunchman454/password-validator.git'
+    }
+}
+
 
         stage('Build Docker Image') {
             steps {
@@ -31,7 +34,7 @@ pipeline {
 
         stage('Run New Container') {
             steps {
-                sh 'docker run -d --name password-validator-container -p 8080:80 password-validator'
+                sh 'docker run -d --name password-validator-container -p 8090:80 password-validator'
             }
         }
     }
