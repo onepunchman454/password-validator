@@ -1,27 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Password Strength Validator</title>
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Validator</title>
+    <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
     <div class="container">
-        <h2>Password Strength checker</h2>
-
-        <input type="password" id="password" placeholder="Enter password">
-
-        <div id="strength-text">Strength: </div>
-
-        <div class="rules">
-            <p id="rule-length">• At least 8 characters</p>
-            <p id="rule-lower">• Contains lowercase letter</p>
-            <p id="rule-upper">• Contains uppercase letter</p>
-            <p id="rule-number">• Contains number</p>
-            <p id="rule-special">• Contains special character</p>
+        <h2>Password Strength Checker</h2>
+        
+        <div class="input-box">
+            <input type="password" id="password" placeholder="Enter Password" oninput="checkPasswordStrength()">
+            <button id="toggleBtn" onclick="togglePassword()">Show</button>
         </div>
+
+        <!-- Strength meter bars -->
+        <div class="meter">
+            <span id="bar1"></span>
+            <span id="bar2"></span>
+            <span id="bar3"></span>
+        </div>
+
+        <p id="strengthText">Strength: </p>
+
+        <button id="generateBtn" onclick="generatePassword()">Generate Strong Password</button>
     </div>
 
     <script src="script.js"></script>
