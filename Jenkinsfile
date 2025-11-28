@@ -31,7 +31,7 @@ pipeline {
 
         stage('Run New Container') {
             steps {
-                sh 'docker run -d --name password-validator-container -p 8080:80 password-validator'
+                sh 'docker run -d --name password-validator-container -p 8090:80 password-validator'
             }
         }
     }

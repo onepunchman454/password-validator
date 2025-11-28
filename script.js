@@ -1,58 +1,61 @@
-const password = document.getElementById("password");
-const strengthText = document.getElementById("strength-text");
+const passwordInput = document.getElementById("password");
+const strengthLabel = document.getElementById("strength-label");
+const bar1 = document.getElementById("bar1");
+const bar2 = document.getElementById("bar2");
+const bar3 = document.getElementById("bar3");
+const togglePassword = document.getElementById("togglePassword");
+const generateBtn = document.getElementById("generateBtn");
 
-const ruleLength = document.getElementById("rule-length");
-const ruleLower = document.getElementById("rule-lower");
-const ruleUpper = document.getElementById("rule-upper");
-const ruleNumber = document.getElementById("rule-number");
-const ruleSpecial = document.getElementById("rule-special");
+passwordInput.addEventListener("input", updateStrength);
 
-password.addEventListener("input", () => {
-    const value = password.value;
+function updateStrength() {
+    const pwd = passwordInput.value;
 
     let strength = 0;
+    if (pwd.length >= 6) strength++;
+    if (/[A-Z]/.test(pwd) && /[0-9]/.test(pwd)) strength++;
+    if (/[!@#$%^&*(),.?":{}|<>]/.test(pwd)) strength++;
 
-    // Rules
-    const hasLower = /[a-z]/.test(value);
-    const hasUpper = /[A-Z]/.test(value);
-    const hasNumber = /[0-9]/.test(value);
-    const hasSpecial = /[!@#$%^&*(),.?":{}|<>]/.test(value);
-    const hasLength = value.length >= 8;
+    resetBars();
 
-    // UI updates
-    updateRule(ruleLower, hasLower);
-    updateRule(ruleUpper, hasUpper);
-    updateRule(ruleNumber, hasNumber);
-    updateRule(ruleSpecial, hasSpecial);
-    updateRule(ruleLength, hasLength);
-
-    // Strength Logic
-    if (hasLower) strength++;
-    if (hasUpper) strength++;
-    if (hasNumber) strength++;
-    if (hasSpecial) strength++;
-    if (hasLength) strength++;
-
-    if (value.length === 0) {
-        strengthText.textContent = "Strength: ";
-    } else if (strength <= 2) {
-        strengthText.textContent = "Strength: Weak";
-        strengthText.style.color = "red";
-    } else if (strength === 3 || strength === 4) {
-        strengthText.textContent = "Strength: Medium";
-        strengthText.style.color = "orange";
+    if (strength === 1) {
+        bar1.style.background = "red";
+        strengthLabel.innerText = "Weak";
+        strengthLabel.style.color = "red";
+    } else if (strength === 2) {
+        bar1.style.background = "orange";
+        bar2.style.background = "orange";
+        strengthLabel.innerText = "Medium";
+        strengthLabel.style.color = "orange";
+    } else if (strength === 3) {
+        bar1.style.background = "green";
+        bar2.style.background = "green";
+        bar3.style.background = "green";
+        strengthLabel.innerText = "Strong";
+        strengthLabel.style.color = "green";
     } else {
-        strengthText.textContent = "Strength: Strong";
-        strengthText.style.color = "green";
-    }
-});
-
-function updateRule(element, condition) {
-    if (condition) {
-        element.style.color = "green";
-        element.style.background = "#e6ffe6";
-    } else {
-        element.style.color = "red";
-        element.style.background = "#ffe6e6";
+        strengthLabel.innerText = "N/A";
     }
 }
+
+function resetBars() {
+    bar1.style.background = "#d3d3d3";
+    bar2.style.background = "#d3d3d3";
+    bar3.style.background = "#d3d3d3";
+}
+
+// Toggle Password Visibility
+togglePassword.addEventListener("click", () => {
+    const type = passwordInput.type === "password" ? "text" : "password";
+    passwordInput.type = type;
+});
+
+// Generate Strong Password
+generateBtn.addEventListener("click", () => {
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()_+<>?:{}";
+    let newPass = "";
+    for (let i = 0; i < 12; i++) newPass += chars[Math.floor(Math.random() * chars.length)];
+
+    passwordInput.value = newPass;
+    updateStrength();
+});

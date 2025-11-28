@@ -1,53 +1,86 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
 body {
-    font-family: Arial, sans-serif;
-    background: #f0f5ff;
+    background-color: #eaf1ff;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    margin: 0;
 }
 
 .container {
     background: white;
-    padding: 25px 35px;
-    border-radius: 12px;
-    width: 350px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    width: 480px;
+    border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.12);
     text-align: center;
 }
 
 h2 {
-    color: #1a73e8;
-    margin-bottom: 20px;
+    font-size: 28px;
+    color: #1565ff;
+    margin-bottom: 25px;
 }
 
-input {
+.input-box {
+    display: flex;
+    align-items: center;
+    border: 1px solid #d3d3d3;
+    border-radius: 12px;
+    padding: 12px;
+}
+
+.input-box input {
+    flex: 1;
+    font-size: 18px;
+    outline: none;
+    border: none;
+}
+
+.eye {
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.strength-bars {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.bar {
+    width: 30%;
+    height: 10px;
+    background-color: #d3d3d3;
+    border-radius: 10px;
+    transition: 0.3s;
+}
+
+.strength-text {
+    margin: 12px 0;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+button {
     width: 100%;
     padding: 12px;
-    border: 2px solid #d0d7e6;
-    border-radius: 8px;
-    font-size: 16px;
-    outline: none;
-    margin-bottom: 20px;
-}
-
-input:focus {
-    border-color: #1a73e8;
-}
-
-#strength-text {
     font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 15px;
+    color: white;
+    background: #1565ff;
+    border: none;
+    border-radius: 10px;
+    margin-top: 15px;
+    cursor: pointer;
+    transition: 0.3s;
 }
 
-.rules p {
-    text-align: left;
-    margin: 6px 0;
-    padding: 6px;
-    border-radius: 5px;
-    font-size: 14px;
-    color: #333;
-    background: #f5f8ff;
+button:hover {
+    background: #0f4cd1;
 }
